@@ -73,11 +73,27 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
      
        
      
-   - kdhfkhaskfhjds
+   - 
    
 2. ## Training Bounding box Model
 
+   Colab Notebook: https://github.com/MittalNeha/detr-panoptic/blob/main/construction_dataset.ipynb
+
+   Once proper ground truth is created, training is straightforward. Some changes were made to the detr code to incorporate custom dataset training. [Reference](https://www.youtube.com/watch?v=RkhXoj_Vvr4) for training detr on custom dataset for bounding box. 
+
+   For this datset the **num_classes is 102**.
+
+   `!python main.py --dataset_file materials --data_path ../coco_panoptic/ --output_dir /gdrive/MyDrive/EVA6/CAPSTONE/output --resume /content/detr/weights/detr-r50-e632da11.pth`
+
+   - Challenges faced:
+
+   Training progress:
+
+   ![training plot](images/bbox_plots1.png)
+
 3. ## Training the Panoptic head
 
+This is trained using the frozen weights from the bbox model.
 
+`!python main.py --batch_size 1 --masks --epochs 25 --lr_drop 15 --data_path ../coco_panoptic/  --coco_panoptic_path ../coco_panoptic/annotations/  --dataset_file coco_panoptic --frozen_weights /gdrive/MyDrive/EVA6/CAPSTONE/output/checkpoint.pth --output_dir output/segm_model`
 
