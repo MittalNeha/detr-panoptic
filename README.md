@@ -122,4 +122,12 @@ This is trained using the frozen weights from the bbox model.
 - The coco_eval seems to need the "segmentation" key in the coco json. which is missing in the current dataset.
 
   `File "/content/detr/datasets/coco_eval.py", line 227, in evaluate    self._prepare()  File "/usr/local/lib/python3.7/dist-packages/pycocotools/cocoeval.py", line 104, in _prepare    _toMask(gts, self.cocoGt)  File "/usr/local/lib/python3.7/dist-packages/pycocotools/cocoeval.py", line 92, in _toMask    rle = coco.annToRLE(ann)  File "/usr/local/lib/python3.7/dist-packages/pycocotools/coco.py", line 422, in annToRLE    segm = ann['segmentation'] KeyError: 'segmentation'`
+  
+  As for now setting cocoEvaluator to None.
+
+
+
+Training is in progress. But we have all that is needed to train these models. 
+
+
 
