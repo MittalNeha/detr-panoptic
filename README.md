@@ -33,8 +33,10 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
 
    This step includes combining the custom dataset, understanding coco annotation formats and creating these annotations. All these steps are captured in the [colab file](https://github.com/MittalNeha/detr-panoptic/blob/main/dataset_preparation.ipynb). The scripts use for creating this ground truth are all present [here](https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE/preparation)
 
-   - ###Custom Dataset: The construction materials dataset that was used for this project is available [here.](https://drive.google.com/file/d/1IsK268zLnXB2Qq0X2LgNDwBZRuVwvjRx/view?usp=sharing) The dataset was created and labelled using CVAT. When downloading the dataset from CVAT, it creates different directories for each class. CvattoCoco.py combined this data from various categories at large. It performs the following steps to achieve the same:
+   - #### Custom Dataset: 
 
+     The construction materials dataset that was used for this project is available [here.](https://drive.google.com/file/d/1IsK268zLnXB2Qq0X2LgNDwBZRuVwvjRx/view?usp=sharing) The dataset was created and labelled using CVAT. When downloading the dataset from CVAT, it creates different directories for each class. CvattoCoco.py combined this data from various categories at large. It performs the following steps to achieve the same:
+     
      - Takes the categories from the coco dataset (things and stuffs) and creates a map map_coco_categories.p such that all the coco things form a new category "misc_stuff". The categories for "materials" i.e. the construction materials is appended further to this categories list.
      - Split the images in each class to 80/20 train/validation dataset, hence creating `materials_train` and `materials_val`
      - Since Detr trains the images with the maximum height of 800. All the source images are converted to "RGB" and downscaled such that the maximum height is 800 and the maximum for the other dimension is 1333.
@@ -42,7 +44,7 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
      - All images are have a incrementing image id and the file_name is same as the image_id.
 
      On saving these annotations, the directory structure looks like this:
-
+     
      ```
      parsed_data
      +--	annotations
@@ -59,7 +61,9 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
      |	+-- <image_id_2>.jpg
      ```
      
-   - ###Panoptic annotations: Since the final task is to make panoptic predictions, the ground truth should also have the same. In order to create the panoptic mask for the custom dataset, each image is passed through a pretrained detr_panoptic model, with the backbone of resnet50. After these coco class predictions, the mask from materials subcategory needs to be merged on top of the masks. To get this conversion to run in batches, the script was created that follows the detr code refering to the repo https://github.com/facebookresearch/detr.
+   - #### Panoptic annotations:
+
+      Since the final task is to make panoptic predictions, the ground truth should also have the same. In order to create the panoptic mask for the custom dataset, each image is passed through a pretrained detr_panoptic model, with the backbone of resnet50. After these coco class predictions, the mask from materials subcategory needs to be merged on top of the masks. To get this conversion to run in batches, the script was created that follows the detr code refering to the repo https://github.com/facebookresearch/detr.
 
      `!python create_panoptic_dataset.py --batch_size 2 --dataset_file coco_materials --data_path parsed_data/ --device cuda --output_dir output/ --coco_panoptic_path coco_panoptic` 
 
