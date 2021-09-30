@@ -1,14 +1,15 @@
-##### Table of Contents  
-[Detr for Panoptic Segmentation](#detr-for-panoptic-segmentation)  
-   [Data Preparation](#creating-the-ground-truth-data-preparation)  
-   [Custom Dataset](#custom-dataset)  
-   [Panoptic annotations](#panoptic-annotations)  
-   [Training Bounding box Model](#training-bounding-box-model)  
-   [Training the Panoptic head](#training-the-panoptic-head)  
-   
+### Table of Contents  
+
+- [Detr for Panoptic Segmentation](#detr-for-panoptic-segmentation)  
+- [Data Preparation](#creating-the-ground-truth-data-preparation)  
+     - [Custom Dataset](#custom-dataset)  
+     - [Panoptic annotations](#panoptic-annotations)  
+- [Training Bounding box Model](#training-bounding-box-model)  
+- [Training the Panoptic head](#training-the-panoptic-head)  
+
 #### Notebook/Code links
-[Data Preparation](https://github.com/MittalNeha/detr-panoptic/blob/main/dataset_preparation.ipynb)  
-[Training models](https://github.com/MittalNeha/detr-panoptic/blob/main/construction_dataset.ipynb)  
+[Data Preparation Notebook](https://github.com/MittalNeha/detr-panoptic/blob/main/dataset_preparation.ipynb)  
+[Training models Notebook](https://github.com/MittalNeha/detr-panoptic/blob/main/construction_dataset.ipynb)  
 [Modified DeTr code](https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE/detr)  
 
 #### Visualizations/Examples
