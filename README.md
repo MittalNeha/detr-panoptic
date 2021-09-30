@@ -42,7 +42,7 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
      
    - Panoptic annotations: Since the final task is to make panoptic predictions, the ground truth should also have the same. In order to create the panoptic mask for the custom dataset, each image is passed through a pretrained detr_panoptic model, with the backbone of resnet50. After these coco class predictions, the mask from materials subcategory needs to be merged on top of the masks. To get this conversion to run in batches, the script was created that follows the detr code refering to the repo https://github.com/facebookresearch/detr.
 
-      `!python create_panoptic_dataset.py --batch_size 2 --dataset_file coco_materials --data_path parsed_data/ --device cuda --output_dir output/ --coco_panoptic_path coco_panoptic` 
+     `!python create_panoptic_dataset.py --batch_size 2 --dataset_file coco_materials --data_path parsed_data/ --device cuda --output_dir output/ --coco_panoptic_path coco_panoptic` 
 
      The post processing step of segmentation consists of the following:
 
@@ -65,11 +65,16 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
        m_id = torch.cat((m_id, custom_mask.to(m_id.device)), 1)
      ```
 
-     - <u>Create Segment id</u>: in the panoptic format, the segment_info id is calculated from the RGB values of the segmentation mask image. This is done by using the id2rgb, rgb2id apis. Hence the segment ids were created for each mask. The class id's were multiplied by 1000 just to get a good contrast for the masks
+     - <u>Create Segment id</u>: In panoptic format, the segment_info id is calculated from the RGB values of the mask image. This is done by using the id2rgb, rgb2id api's. Hence the segment ids were created for each mask. The class id's were multiplied by 1000 just to get a good contrast for the masks
 
      ```
        new_id = cur_classes*1000 + torch.Tensor(range(len(cur_classes)))
      ```
+     Some sample panoptic segmentation images are shown [here](Ground Truth samples.md)
+
+     
+
+     After creating the ground truth dataset, the folder structure looks like this:
 
      ```
      coco_panoptic
@@ -107,9 +112,21 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
 
    - <u>Challenges faced</u>:
 
-   Training progress:
+   <u>Training progress</u>:
+
+   - **Training weights** are present [here](https://drive.google.com/drive/folders/1DJjtzj8EUEzklZXCA0kPQk434JTt_GeH?usp=sharing)
+
+   - evaluation logs:
+   - [training logs](https://docs.google.com/document/d/e/2PACX-1vR2WqCDNvc1LlBJYGI6xxv0N1sWUvDlJT7dpJhoda5CqkGXYdlILgEgHwswJ6z0wPnLLx_cf1VBvFmg/pub)
+   - here are some of the inference results
 
    ![training plot](images/bbox_plots1.png)
+
+   ![training plot, progress](images/bbox_plots3.png)
+
+   It was seen that the mAP did not go beyond 0.26 and hence found a bug with creating the ground truth class.
+
+   
 
 3. ## Training the Panoptic head
 
