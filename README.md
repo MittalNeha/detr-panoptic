@@ -70,7 +70,7 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
      ```
        new_id = cur_classes*1000 + torch.Tensor(range(len(cur_classes)))
      ```
-     Some sample panoptic segmentation images are shown [here](Ground Truth samples.md)
+     Some sample panoptic segmentation images are shown [here](https://github.com/MittalNeha/detr-panoptic/blob/main/Ground%20Truth%20samples.md)
 
      
 
