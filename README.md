@@ -9,6 +9,7 @@
      - [Training progress](#training-progress)  
 - [Training the Panoptic head](#training-the-panoptic-head)  
      - [Challenges](#challenges-1)  
+     - [Training progress](#training-progress1)  
 - [Future Work](#future-workimprovements)  
 
 ### Notebook/Code links
@@ -19,7 +20,7 @@
 ### Visualizations/Examples
 [Ground Truth](https://github.com/MittalNeha/detr-panoptic/blob/main/Ground%20Truth%20samples.md)  
 [Samples for Bounding Box](https://github.com/MittalNeha/detr-panoptic/blob/main/bbox_predictions.md)  
-[Samples for Panoptic Segmentation]  
+[Samples for Panoptic Segmentation](https://github.com/MittalNeha/detr-panoptic/blob/main/panoptic_predictions.md)  
 
 # DeTr for Panoptic Segmentation
 The objective of this capstone project is to understand and train a custom panoptic segmentation model on the dataset "construction materials". This is doen by using a Transformer based model DeTr. The basic understanding of this model is given [here](https://github.com/MittalNeha/Extensive_Vision_AI6/blob/main/CAPSTONE/Understanding%20DETR.md). In this text I will explain the various steps taken to get the end to end pipeline to train this model. At a very high level, the tasks include creating a ground truth (GT) that complies with the various annotation formats followed for coco, training the detection or bounding box model and training the panoptic segmentation model. 
@@ -80,35 +81,37 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
       ```
       scores > self.threshold
       ```
-      
-       
+
+
+​       
      - Merge Segmentations:
-   
+       
      ```
       m_id = masks.transpose(0, 1).softmax(-1)
       m_id = m_id.argmax(-1).view(h, w)
      ```
      
        The output of softmax here, gives the output such that each query out that satisfies the threshold from the previous step has the value closer to 1.0. Therefore taking the argmax in next step, gives the index corresponsing to the order of predicted classes to each pixel of the mask output.
-   
+       
        *To trick these operations and give priority to the materials category, the custom_class_mask was concatenated to m_id such that the maximumvalue for the mask was 2.0 instead of 1.0. This way, the regions of overlap between the coco prediction and custom class segmentation will give priority to the custom class.*
-
+    
      ```
       custom_mask = cv.normalize(input_segments, None, alpha=0, beta=2, norm_type=cv.NORM_MINMAX, dtype=cv.CV_32F)
        m_id = torch.cat((m_id, custom_mask.to(m_id.device)), 1)
      ```
-   
+       
      - <u>Create Segment id</u>: In panoptic format, the segment_info id is calculated from the RGB values of the mask image. This is done by using the id2rgb, rgb2id api's. Hence the segment ids were created for each mask. The class id's were multiplied by 1000 just to get a good contrast for the masks
-
+    
      ```
       new_id = cur_classes*1000 + torch.Tensor(range(len(cur_classes)))
      ```
      Some sample panoptic segmentation images are shown [here](https://github.com/MittalNeha/detr-panoptic/blob/main/Ground%20Truth%20samples.md)
-   
-     
+
+
+​     
 
      After creating the ground truth dataset, the folder structure looks like this:
-
+    
      ```
       coco_panoptic
      +--	annotations
@@ -128,8 +131,9 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
      |	+-- <image_id_1>.jpg
      |	+-- <image_id_2>.jpg
      ```
-   
-     
+
+
+​     
 
 2. ## Training Bounding box Model
 
@@ -157,6 +161,8 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
    
 
    #### <u>Training progress</u>:
+
+   This network was trained for a total of 278 epochs.
 
    - **Training weights** are present [here](https://drive.google.com/drive/folders/1DJjtzj8EUEzklZXCA0kPQk434JTt_GeH?usp=sharing)
    - evaluation logs:
@@ -196,7 +202,15 @@ There was another bug, we need to change the value of "is_thing_map" based on th
 |Things|  25.1 |  64.0 |  31.4  |  47|
 |Stuff |   3.4 |  41.8 |   3.9 |   48|
 
+
+
+#### <u>Training progress</u>:
+
 This training is still in progress and the current results are not good. 
+
+- **Training weights** are present [here](https://drive.google.com/drive/folders/12UYBpap7jUwoKriB4UxmY92dKd8ly6mY?usp=sharing)
+- [training logs](https://docs.google.com/document/d/e/2PACX-1vR2WqCDNvc1LlBJYGI6xxv0N1sWUvDlJT7dpJhoda5CqkGXYdlILgEgHwswJ6z0wPnLLx_cf1VBvFmg/pub)
+- [Inference results](https://github.com/MittalNeha/detr-panoptic/blob/main/panoptic_predictions.md)
 
 
 
