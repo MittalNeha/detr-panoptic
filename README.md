@@ -188,14 +188,15 @@ This is trained using the frozen weights from the bbox model.
 |  Stuff   |  1.1 | 13.6 | 1.3 | 48  |
 
 There was another bug, we need to change the value of "is_thing_map" based on the categories for out dataset. This improved the evaluation logs manifold.
-**after epoch 1 of new training**:
+**after epoch 5 of new training**:
 
 |      |    PQ  |   SQ  |   RQ  |   N   |
 |------|--------|-------|-------|-------|
-|All   |  14.8 |  50.7 |  18.3 |   95 |
-|Things|  25.1 |  61.1 |  31.4  |  47|
-|Stuff |   4.8 |  40.5 |   5.5 |   48|
+|All   |  14.3 |  47.7 |  17.3 |   95 |
+|Things|  25.1 |  64.0 |  31.4  |  47|
+|Stuff |   3.4 |  41.8 |   3.9 |   48|
 
+This training is still in progress and the current results are not good. 
 
 
 
