@@ -9,6 +9,7 @@
      - [Training progress](#training-progress)  
 - [Training the Panoptic head](#training-the-panoptic-head)  
      - [Challenges](#challenges-1)  
+- [Future Work](#future-workimprovements)  
 
 ### Notebook/Code links
 [Data Preparation Notebook](https://github.com/MittalNeha/detr-panoptic/blob/main/dataset_preparation.ipynb)  
