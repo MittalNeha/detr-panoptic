@@ -5,14 +5,17 @@
      - [Custom Dataset](#custom-dataset)  
      - [Panoptic annotations](#panoptic-annotations)  
 - [Training Bounding box Model](#training-bounding-box-model)  
+     - [Challenges](#challenges)  
+     - [Training progress](#training-progress)  
 - [Training the Panoptic head](#training-the-panoptic-head)  
+     - [Challenges](#challenges)  
 
-#### Notebook/Code links
+### Notebook/Code links
 [Data Preparation Notebook](https://github.com/MittalNeha/detr-panoptic/blob/main/dataset_preparation.ipynb)  
 [Training models Notebook](https://github.com/MittalNeha/detr-panoptic/blob/main/construction_dataset.ipynb)  
 [Modified DeTr code](https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE/detr)  
 
-#### Visualizations/Examples
+### Visualizations/Examples
 [Ground Truth](https://github.com/MittalNeha/detr-panoptic/blob/main/Ground%20Truth%20samples.md)  
 [Samples for Bounding Box](https://github.com/MittalNeha/detr-panoptic/blob/main/bbox_predictions.md)  
 [Samples for Panoptic Segmentation]  
@@ -137,7 +140,7 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
 
    `!python main.py --dataset_file materials --data_path ../coco_panoptic/ --output_dir /gdrive/MyDrive/EVA6/CAPSTONE/output --resume /content/detr/weights/detr-r50-e632da11.pth`
 
-   - <u>Challenges faced</u>:
+   #### <u>Challenges</u>:
      - The model was not training at all and then by plotting the 
 
    ![training plot](images/bbox_plots1.png)
