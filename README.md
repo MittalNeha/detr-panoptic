@@ -14,7 +14,7 @@
 
 #### Visualizations/Examples
 [Ground Truth](https://github.com/MittalNeha/detr-panoptic/blob/main/Ground%20Truth%20samples.md)  
-[Samples for Bounding Box]  
+[Samples for Bounding Box](https://github.com/MittalNeha/detr-panoptic/blob/main/bbox_predictions.md)  
 [Samples for Panoptic Segmentation]  
 
 # DeTr for Panoptic Segmentation
@@ -69,18 +69,22 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
 
      `!python create_panoptic_dataset.py --batch_size 2 --dataset_file coco_materials --data_path parsed_data/ --device cuda --output_dir output/ --coco_panoptic_path coco_panoptic` 
 
-     The post processing step of segmentation consists of the following:
 
-     - ```
+
+    ###### The post processing step of segmentation consists of the following:
+     - 
+      ```
       scores > self.threshold
-       ```
+      ```
+      
        
-     - <u>Merge Segmentations</u>:
+     - Merge Segmentations:
    
      ```
       m_id = masks.transpose(0, 1).softmax(-1)
-       m_id = m_id.argmax(-1).view(h, w)
+      m_id = m_id.argmax(-1).view(h, w)
      ```
+     
        The output of softmax here, gives the output such that each query out that satisfies the threshold from the previous step has the value closer to 1.0. Therefore taking the argmax in next step, gives the index corresponsing to the order of predicted classes to each pixel of the mask output.
    
        *To trick these operations and give priority to the materials category, the custom_class_mask was concatenated to m_id such that the maximumvalue for the mask was 2.0 instead of 1.0. This way, the regions of overlap between the coco prediction and custom class segmentation will give priority to the custom class.*
@@ -153,7 +157,7 @@ https://github.com/MittalNeha/Extensive_Vision_AI6/tree/main/CAPSTONE
    - **Training weights** are present [here](https://drive.google.com/drive/folders/1DJjtzj8EUEzklZXCA0kPQk434JTt_GeH?usp=sharing)
    - evaluation logs:
    - [training logs](https://docs.google.com/document/d/e/2PACX-1vR2WqCDNvc1LlBJYGI6xxv0N1sWUvDlJT7dpJhoda5CqkGXYdlILgEgHwswJ6z0wPnLLx_cf1VBvFmg/pub)
-   - Inference results
+   - [Inference results](https://github.com/MittalNeha/detr-panoptic/blob/main/bbox_predictions.md)
 
    
 
